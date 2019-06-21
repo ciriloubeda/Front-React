@@ -23,6 +23,7 @@ export default class Edit extends Component {
   componentDidMount() {
       axios.get('https://api-irso.herokuapp.com/clientes/'+this.props.match.params.id)
           .then(response => {
+            console.log("hola")
               this.setState({ 
                 nombre: response.data.nombres, 
                 apellido: response.data.apellido,
@@ -64,13 +65,13 @@ export default class Edit extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
-      nombre: this.state.nombre,
+      nombre: this.state.nombres,
       apellido: this.state.apellido,
       direccion: this.state.direccion,
       codPostal: this.state.codPostal,
       telefono: this.state.telefono
     };
-    axios.put('https://api-irso.herokuapp.com/clientes'+this.props.match.params.id, obj)
+    axios.put('https://api-irso.herokuapp.com/clientes/'+this.props.match.params.id, obj)
         .then(res => console.log(res.data));
     
     this.props.history.push('/index');

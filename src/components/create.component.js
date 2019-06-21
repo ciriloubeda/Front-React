@@ -4,83 +4,117 @@ import axios from 'axios';
 export default class Create extends Component {
   constructor(props) {
     super(props);
-    this.onChangePersonName = this.onChangePersonName.bind(this);
-    this.onChangeBusinessName = this.onChangeBusinessName.bind(this);
-    this.onChangeGstNumber = this.onChangeGstNumber.bind(this);
+    this.onChangeNombre = this.onChangeNombre.bind(this);
+    this.onChangeApellido = this.onChangeApellido.bind(this);
+    this.onChangeDireccion = this.onChangeDireccion.bind(this);
+    this.onChangeCodPostal = this.onChangeCodPostal.bind(this);
+    this.onChangeTelefono = this.onChangeTelefono.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      person_name: '',
-      business_name: '',
-      business_gst_number:''
+      nombres: '',
+      apellido: '',
+      direccion:'',
+      codPostal:'',
+      telefono:''
     }
   }
-  onChangePersonName(e) {
+  onChangeNombre(e) {
     this.setState({
-      person_name: e.target.value
+      nombres: e.target.value
     });
   }
-  onChangeBusinessName(e) {
+  onChangeApellido(e) {
     this.setState({
-      business_name: e.target.value
+      apellido: e.target.value
     })  
   }
-  onChangeGstNumber(e) {
+  onChangeDireccion(e) {
     this.setState({
-      business_gst_number: e.target.value
+      direccion: e.target.value
+    })
+  }
+  onChangeCodPostal(e) {
+    this.setState({
+      codPostal: e.target.value
+    })
+  }
+  onChangeTelefono(e) {
+    this.setState({
+      telefono: e.target.value
     })
   }
 
   onSubmit(e) {
     e.preventDefault();
     const obj = {
-      person_name: this.state.person_name,
-      business_name: this.state.business_name,
-      business_gst_number: this.state.business_gst_number
+      nombres: this.state.nombres,
+      apellido: this.state.apellido,
+      direccion: this.state.direccion,
+      codPostal: this.state.codPostal,
+      telefono: this.state.telefono
     };
-    axios.post('http://localhost:4000/business/add', obj)
+    axios.post('https://api-irso.herokuapp.com/clientes/', obj)
         .then(res => console.log(res.data));
     
     this.setState({
-      person_name: '',
-      business_name: '',
-      business_gst_number: ''
+      nombres: '',
+      apellido: '',
+      direccion:'',
+      codPostal:'',
+      telefono:''
     })
   }
  
   render() {
     return (
         <div style={{ marginTop: 10 }}>
-            <h3 align="center">Add New Business</h3>
+            <h3 align="center">Alta de Clientes</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <label>Person Name:  </label>
+                    <label>Nombre:  </label>
                     <input 
                       type="text" 
                       className="form-control" 
-                      value={this.state.person_name}
-                      onChange={this.onChangePersonName}
+                      value={this.state.nombres}
+                      onChange={this.onChangeNombre}
                       />
                 </div>
                 <div className="form-group">
-                    <label>Business Name: </label>
+                    <label>Apellido: </label>
                     <input type="text" 
                       className="form-control"
-                      value={this.state.business_name}
-                      onChange={this.onChangeBusinessName}
+                      value={this.state.apellido}
+                      onChange={this.onChangeApellido}
                       />
                 </div>
                 <div className="form-group">
-                    <label>GST Number: </label>
+                    <label>Direccion: </label>
                     <input type="text" 
                       className="form-control"
-                      value={this.state.business_gst_number}
-                      onChange={this.onChangeGstNumber}
+                      value={this.state.direccion}
+                      onChange={this.onChangeDireccion}
+                      />
+                </div>
+                <div className="form-group">
+                    <label>Codigo Postal: </label>
+                    <input type="text" 
+                      className="form-control"
+                      value={this.state.codPostal}
+                      onChange={this.onChangeCodPostal}
+                      />
+                </div>
+                <div className="form-group">
+                    <label>Telefono: </label>
+                    <input type="text" 
+                      className="form-control"
+                      value={this.state.telefono}
+                      onChange={this.onChangeTelefono}
                       />
                 </div>
                 <div className="form-group">
                     <input type="submit" 
-                      value="Register Business" 
+                      value="Agregar" 
                       className="btn btn-primary"/>
                 </div>
             </form>

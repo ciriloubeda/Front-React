@@ -12,10 +12,10 @@ export default class Edit extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      nombre: '',
+      nombres: '',
       apellido: '',
       direccion:'',
-      codPostal:'',
+      cod_postal:'',
       telefono:''
     }
   }
@@ -25,10 +25,10 @@ export default class Edit extends Component {
           .then(response => {
             console.log("hola")
               this.setState({ 
-                nombre: response.data.nombres, 
+                nombres: response.data.nombres, 
                 apellido: response.data.apellido,
                 direccion: response.data.direccion,
-                codPostal: response.data.cod_postal,
+                cod_postal: response.data.cod_postal,
                 telefono: response.data.telefono });
           })
           .catch(function (error) {
@@ -38,7 +38,7 @@ export default class Edit extends Component {
 
   onChangeNombre(e) {
     this.setState({
-      nombre: e.target.value
+      nombres: e.target.value
     });
   }
   onChangeApellido(e) {
@@ -53,7 +53,7 @@ export default class Edit extends Component {
   }
   onChangeCodPostal(e) {
     this.setState({
-      codPostal: e.target.value
+      cod_postal: e.target.value
     })
   }
   onChangeTelefono(e) {
@@ -65,10 +65,10 @@ export default class Edit extends Component {
   onSubmit(e) {
     e.preventDefault();
     const obj = {
-      nombre: this.state.nombres,
+      nombres: this.state.nombres,
       apellido: this.state.apellido,
       direccion: this.state.direccion,
-      codPostal: this.state.codPostal,
+      cod_postal: this.state.cod_postal,
       telefono: this.state.telefono
     };
     axios.put('https://api-irso.herokuapp.com/clientes/'+this.props.match.params.id, obj)
@@ -87,7 +87,7 @@ export default class Edit extends Component {
                     <input 
                       type="text" 
                       className="form-control" 
-                      value={this.state.nombre}
+                      value={this.state.nombres}
                       onChange={this.onChangeNombre}
                       />
                 </div>
@@ -111,7 +111,7 @@ export default class Edit extends Component {
                     <label>Codigo Postal: </label>
                     <input type="text" 
                       className="form-control"
-                      value={this.state.codPostal}
+                      value={this.state.cod_postal}
                       onChange={this.onChangeCodPostal}
                       />
                 </div>

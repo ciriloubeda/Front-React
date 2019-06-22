@@ -15,7 +15,7 @@ export default class Create extends Component {
       nombres: '',
       apellido: '',
       direccion:'',
-      codPostal:'',
+      cod_postal:'',
       telefono:''
     }
   }
@@ -36,7 +36,7 @@ export default class Create extends Component {
   }
   onChangeCodPostal(e) {
     this.setState({
-      codPostal: e.target.value
+      cod_postal: e.target.value
     })
   }
   onChangeTelefono(e) {
@@ -51,22 +51,34 @@ export default class Create extends Component {
       nombres: this.state.nombres,
       apellido: this.state.apellido,
       direccion: this.state.direccion,
-      codPostal: this.state.codPostal,
+      cod_postal: this.state.cod_postal,
       telefono: this.state.telefono
     };
-    axios.post('https://api-irso.herokuapp.com/clientes/', obj)
-        .then(res => console.log(res.data));
-    
+    console.log(obj.nombres)
+
+    // axios.post('/user', {
+    //   firstName: 'Fred',
+    //   lastName: 'Flintstone'
+    // })
+
+
+    axios.post('https://api-irso.herokuapp.com/clientes', obj)
+        .then(res => {console.log(res)}).catch(err => {
+          console.log("limaaaaaaaaaaaa")
+          console.log(err.response.data)
+        });
+    console.log("hola")
     this.setState({
       nombres: '',
       apellido: '',
       direccion:'',
-      codPostal:'',
+      cod_postal:'',
       telefono:''
     })
   }
  
   render() {
+    console.log("hola o2")
     return (
         <div style={{ marginTop: 10 }}>
             <h3 align="center">Alta de Clientes</h3>
@@ -100,7 +112,7 @@ export default class Create extends Component {
                     <label>Codigo Postal: </label>
                     <input type="text" 
                       className="form-control"
-                      value={this.state.codPostal}
+                      value={this.state.cod_postal}
                       onChange={this.onChangeCodPostal}
                       />
                 </div>

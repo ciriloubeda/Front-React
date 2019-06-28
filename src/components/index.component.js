@@ -34,9 +34,9 @@ export default class Index extends Component {
                 <th>id</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Direccion</th>
-                <th>Codigo Postal</th>
-                <th>Telefono</th>
+                <th>Dirección</th>
+                <th>Código Postal</th>
+                <th>Teléfono</th>
                 <th colSpan="2">Acciones</th>
               </tr>
             </thead>

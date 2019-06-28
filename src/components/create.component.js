@@ -19,11 +19,13 @@ export default class Create extends Component {
       telefono:''
     }
   }
+  
   onChangeNombre(e) {
     this.setState({
       nombres: e.target.value
     });
   }
+  
   onChangeApellido(e) {
     this.setState({
       apellido: e.target.value
@@ -54,20 +56,15 @@ export default class Create extends Component {
       cod_postal: this.state.cod_postal,
       telefono: this.state.telefono
     };
-    console.log(obj.nombres)
-
-    // axios.post('/user', {
-    //   firstName: 'Fred',
-    //   lastName: 'Flintstone'
-    // })
-
-
-    axios.post('https://api-irso.herokuapp.com/clientes', obj)
-        .then(res => {console.log(res)}).catch(err => {
-          console.log("limaaaaaaaaaaaa")
-          console.log(err.response.data)
-        });
-    console.log("hola")
+    
+    axios.post('https://api-irso.herokuapp.com/clientes', obj).then(res => {
+      console.log(res.data);
+      this.props.history.push('/index');
+    }).catch(err => {
+      console.log("es :::::::")
+      console.log(err.response.data)
+    });
+    
     this.setState({
       nombres: '',
       apellido: '',
@@ -77,16 +74,22 @@ export default class Create extends Component {
     })
   }
  
+ 
   render() {
-    console.log("hola o2")
     return (
         <div style={{ marginTop: 10 }}>
             <h3 align="center">Alta de Clientes</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                     <label>Nombre:  </label>
-                    <input 
+                    <input
+                      placeholder="*campo obligatorio"
+                      maxLength = "30"
+                      pattern="[a-zA-z]{1,30}"
+                      required="this.state.nombres"
+                      title = "Solo letras del a-z | Máximo 30 caracteres"
                       type="text" 
+                      name = "nombres"
                       className="form-control" 
                       value={this.state.nombres}
                       onChange={this.onChangeNombre}
@@ -94,31 +97,52 @@ export default class Create extends Component {
                 </div>
                 <div className="form-group">
                     <label>Apellido: </label>
-                    <input type="text" 
+                    <input 
+                      placeholder="*campo obligatorio"
+                      maxLength = "30"
+                      pattern="[a-zA-z]{1,30}"
+                      required="this.state.apellido"
+                      title = "Solo letras del a-z | Máximo 30 caracteres"
+                      type="text" 
                       className="form-control"
                       value={this.state.apellido}
                       onChange={this.onChangeApellido}
                       />
                 </div>
                 <div className="form-group">
-                    <label>Direccion: </label>
-                    <input type="text" 
+                    <label>Dirección: </label>
+                    <input
+                      placeholder="*campo obligatorio"
+                      maxLength = "50"
+                      required="this.state.direccion"
+                      title = "Máximo 50 caracteres" 
+                      type="text" 
                       className="form-control"
                       value={this.state.direccion}
                       onChange={this.onChangeDireccion}
                       />
                 </div>
                 <div className="form-group">
-                    <label>Codigo Postal: </label>
-                    <input type="text" 
+                    <label>Código Postal: </label>
+                    <input
+                      placeholder="*campo obligatorio"
+                      maxLength = "50"
+                      required="this.state.cod_postal"
+                      title = "Máximo 50 caracteres"
+                      type="text" 
                       className="form-control"
                       value={this.state.cod_postal}
                       onChange={this.onChangeCodPostal}
                       />
                 </div>
                 <div className="form-group">
-                    <label>Telefono: </label>
-                    <input type="text" 
+                    <label>Teléfono: </label>
+                    <input
+                      placeholder="*campo obligatorio"
+                      maxLength = "50"
+                      required="this.state.telefono"
+                      title = "Máximo 50 caracteres"
+                      type="text" 
                       className="form-control"
                       value={this.state.telefono}
                       onChange={this.onChangeTelefono}

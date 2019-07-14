@@ -57,14 +57,16 @@ export default class Create extends Component {
       telefono: this.state.telefono
     };
     
-    axios.post('https://api-irso.herokuapp.com/clientes', obj).then(res => {
-      console.log(res.data);
+    axios.post('https://api-irso.herokuapp.com/clientes', obj).then(response => {
+      // console.log("OK - Response: ");
+      console.log(response);
       this.props.history.push('/index');
     }).catch(err => {
-      console.log("es :::::::")
-      console.log(err.response.data)
+      // console.log("Error - Response: ");
+      console.log(err.response);
+      alert(err.response.data.error);
     });
-    
+
     this.setState({
       nombres: '',
       apellido: '',
@@ -81,12 +83,11 @@ export default class Create extends Component {
             <h3 align="center">Alta de Clientes</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <label>Nombre:  </label>
+                    <label>Nombres: </label>
                     <input
                       placeholder="*campo obligatorio"
                       maxLength = "30"
                       pattern="[a-zA-z]{1,30}"
-                      required="this.state.nombres"
                       title = "Solo letras del a-z | Máximo 30 caracteres"
                       type="text" 
                       name = "nombres"
@@ -101,7 +102,6 @@ export default class Create extends Component {
                       placeholder="*campo obligatorio"
                       maxLength = "30"
                       pattern="[a-zA-z]{1,30}"
-                      required="this.state.apellido"
                       title = "Solo letras del a-z | Máximo 30 caracteres"
                       type="text" 
                       className="form-control"
@@ -114,7 +114,6 @@ export default class Create extends Component {
                     <input
                       placeholder="*campo obligatorio"
                       maxLength = "50"
-                      required="this.state.direccion"
                       title = "Máximo 50 caracteres" 
                       type="text" 
                       className="form-control"
@@ -127,7 +126,6 @@ export default class Create extends Component {
                     <input
                       placeholder="*campo obligatorio"
                       maxLength = "50"
-                      required="this.state.cod_postal"
                       title = "Máximo 50 caracteres"
                       type="text" 
                       className="form-control"
@@ -139,10 +137,9 @@ export default class Create extends Component {
                     <label>Teléfono: </label>
                     <input
                       placeholder="*campo obligatorio"
-                      maxLength = "50"
-                      required="this.state.telefono"
-                      title = "Máximo 50 caracteres"
-                      type="text" 
+                      maxLength = "20"
+                      title = "Máximo 20 caracteres"
+                      type="number"
                       className="form-control"
                       value={this.state.telefono}
                       onChange={this.onChangeTelefono}

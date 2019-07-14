@@ -9,14 +9,14 @@ export default class Index extends Component {
       this.state = {clientes: []};
     }
     componentDidMount(){
-      axios.get('https://api-irso.herokuapp.com/clientes')
-        .then(response => {
-          console.log(response)
-          this.setState({ clientes: response.data.customers});
-        })
-        .catch(function (error) {
+      axios.get('https://api-irso.herokuapp.com/clientes').then(response => {
+        // console.log("OK - Response: ");
+        console.log(response)
+        this.setState({ clientes: response.data.customers});
+      }).catch(error => {
           console.log(error);
-        })
+          console.log(error.response);
+      });
     }
     tabRow(){
       return this.state.clientes.map(function(object, i){
@@ -31,7 +31,7 @@ export default class Index extends Component {
           <table className="table table-striped" style={{ marginTop: 20 }}>
             <thead>
               <tr>
-                <th>id</th>
+                <th>N°</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
                 <th>Dirección</th>

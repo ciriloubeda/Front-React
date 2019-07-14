@@ -22,7 +22,6 @@ export default class Edit extends Component {
 
   componentDidMount() {
     axios.get('https://api-irso.herokuapp.com/clientes/'+ this.props.match.params.id).then(response => {
-      console.log("hola")
         this.setState({ 
           nombres: response.data.nombres, 
           apellido: response.data.apellido,
@@ -30,8 +29,8 @@ export default class Edit extends Component {
           cod_postal: response.data.cod_postal,
           telefono: response.data.telefono 
         });
-    }).catch(function (error) {
-        console.log(error);
+    }).catch(error => {
+        console.log(error.response);
     });
   }
 
@@ -70,12 +69,16 @@ export default class Edit extends Component {
       cod_postal: this.state.cod_postal,
       telefono: this.state.telefono
     };
-    axios.put('https://api-irso.herokuapp.com/clientes/' + this.props.match.params.id, obj).then(res => {
-      console.log(res.data);
+    axios.put('https://api-irso.herokuapp.com/clientes/' + this.props.match.params.id, obj).then(response => {
+      // console.log("OK - Response: ");
+      console.log(response);
       this.props.history.push('/index');
+    }).catch(err => {
+      // console.log("Error - Response: ");
+      console.log(err.response.data);
+      alert(err.response.data.error);
     });
   }
-
 
   render() {
     return (
@@ -83,12 +86,11 @@ export default class Edit extends Component {
             <h3 align="center">Actualizar Cliente</h3>
             <form onSubmit={this.onSubmit}>
                 <div className="form-group">
-                    <label>Nombre:  </label>
+                    <label>Nombre: </label>
                     <input
                       placeholder="*campo obligatorio"
                       maxLength = "30"
                       pattern="[a-zA-z]{1,30}"
-                      required="this.state.nombres"
                       title = "Solo letras del a-z | Máximo 30 caracteres"
                       type="text"
                       className="form-control" 
@@ -102,7 +104,6 @@ export default class Edit extends Component {
                       placeholder="*campo obligatorio"
                       maxLength = "30"
                       pattern="[a-zA-z]{1,30}"
-                      required="this.state.apellido"
                       title = "Solo letras del a-z | Máximo 30 caracteres"
                       type="text"
                       className="form-control"
@@ -115,7 +116,6 @@ export default class Edit extends Component {
                     <input
                       placeholder="*campo obligatorio"
                       maxLength = "50"
-                      required="this.state.direccion"
                       title = "Máximo 50 caracteres" 
                       type="text" 
                       className="form-control"
@@ -128,7 +128,6 @@ export default class Edit extends Component {
                     <input
                       placeholder="*campo obligatorio"
                       maxLength = "50"
-                      required="this.state.cod_postal"
                       title = "Máximo 50 caracteres" 
                       type="text"
                       className="form-control"
@@ -137,13 +136,12 @@ export default class Edit extends Component {
                       />
                 </div>
                 <div className="form-group">
-                    <label>Telefono: </label>
+                    <label>Teléfono: </label>
                     <input
                       placeholder="*campo obligatorio"
-                      maxLength = "50"
-                      required="this.state.telefono"
-                      title = "Máximo 50 caracteres" 
-                      type="text" 
+                      maxLength = "20"
+                      title = "Máximo 20 caracteres" 
+                      type="number" 
                       className="form-control"
                       value={this.state.telefono}
                       onChange={this.onChangeTelefono}
